@@ -9,7 +9,7 @@ spec:
   - git:
       repoURL: https://github.com/debenstack/debenstack-profile.git 
       revision: helmfixes
-      files:
+      directories:
         - path: helm/values-*.yaml
       values:
         environment: '{{ .path.filename | trimPrefix "values-" | trimSuffix ".yaml" }}'
