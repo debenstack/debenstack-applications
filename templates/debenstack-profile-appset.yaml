@@ -2,17 +2,18 @@ apiVersion: argoproj.io/v1alpha1
 kind: ApplicationSet
 metadata:
   name: debenstack-profile-applicationset
+  namespace: argocd
 spec:
   goTemplate: true
   goTemplateOptions: ["missingkey=error"]
   generators:
-  - git:
-      repoURL: https://github.com/debenstack/debenstack-profile.git 
-      revision: helmfixes
-      files:
-        - path: helm/values-*.yaml
-      values:
-        env: '{{ .path.filename | replace "values-" "" | replace ".yaml" "" }}'
+    - git:
+        repoURL: https://github.com/debenstack/debenstack-profile.git 
+        revision: helmfixes
+        files:
+          - path: helm/values-*.yaml
+        values:
+          env: '{{ .path.filename | replace "values-" "" | replace ".yaml" "" }}'
   template:
     metadata:
         name: 'debenstack-profile-{{ .values.env }}'
