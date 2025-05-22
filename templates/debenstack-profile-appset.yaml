@@ -12,7 +12,7 @@ spec:
       files:
         - path: helm/values-*.yaml
       values:
-        environment: '{{ path.filename | regexReplaceAll `^values-(.*)$` `$1` }}'
+        environment: '{{ path.basename | regexReplaceAll `^values-(.*)$` `$1` }}'
   template:
     metadata:
         name: 'debenstack-profile-{{environment}}'
