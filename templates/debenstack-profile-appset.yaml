@@ -9,13 +9,13 @@ spec:
   - git:
       repoURL: https://github.com/debenstack/debenstack-profile.git 
       revision: helmfixes
-      directories:
-        - path: helm/env/*
+      files:
+        - path: helm/values-*.yaml
       values:
-        environment: '{{ .path.basename }}'
+        env: '{{ .path.filename | replace "values-" "" | replace ".yaml" "" }}'
   template:
     metadata:
-        name: 'debenstack-profile-{{ .values.environment }}'
+        name: 'debenstack-profile-{{ .values.env }}'
     spec:
       project: default
       source:
@@ -24,12 +24,12 @@ spec:
         path: helm
 
         valueFiles:
-          - ./values.yaml
-          - ./env/values-{{ .values.environment }}.yaml
+          - 'values.yaml'
+          - 'values-{{ .values.env }}.yaml'
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: debenstack-profile-{{ .values.environment }}
+        namespace: 'debenstack-profile-{{ .values.env }}'
 
     # Sync policy
       syncPolicy:
