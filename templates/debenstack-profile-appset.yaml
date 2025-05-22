@@ -12,7 +12,7 @@ spec:
       directories:
         - path: helm/values-*.yaml
       values:
-        environment: '{{ .path.basename | trimPrefix "values-" | trimSuffix ".yaml" }}'
+        environment: '{{ path.basename | trimPrefix "values-" | trimSuffix ".yaml" }}'
   template:
     metadata:
         name: 'debenstack-profile-{{ .values.environment }}'
