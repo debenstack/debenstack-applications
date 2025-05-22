@@ -3,8 +3,8 @@ kind: ApplicationSet
 metadata:
   name: debenstack-profile-applicationset
 spec:
-  #goTemplate: true
-  #goTemplateOptions: ["missingkey=error"]
+  goTemplate: true
+  goTemplateOptions: ["missingkey=error"]
   generators:
   - git:
       repoURL: https://github.com/debenstack/debenstack-profile.git 
@@ -12,7 +12,7 @@ spec:
       files:
         - path: helm/values-*.yaml
       values:
-        environment: '{{ path.basename | regexReplaceAll `^values-(.*)$` `$1` }}'
+        environment: '{{ .path | base | trimPrefix "values-" | trimSuffix ".yaml" }}'
   template:
     metadata:
         name: 'debenstack-profile-{{environment}}'
