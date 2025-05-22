@@ -9,8 +9,8 @@ spec:
   - git:
       repoURL: https://github.com/debenstack/debenstack-profile.git 
       revision: helmfixes
-      directories:
-      - path: helm/values-*.yaml
+      files:
+        - path: helm/values-*.yaml
       values:
         environment: '{{ path.filename | regexReplaceAll `^values-(.*)$` `$1` }}'
   template:
