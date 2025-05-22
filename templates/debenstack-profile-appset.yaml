@@ -10,9 +10,9 @@ spec:
       repoURL: https://github.com/debenstack/debenstack-profile.git 
       revision: helmfixes
       directories:
-        - path: helm/values-*.yaml
+        - path: helm/env/*
       values:
-        environment: '{{ .path.path }}'
+        environment: '{{ .path.basename }}'
   template:
     metadata:
         name: 'debenstack-profile-{{ .values.environment }}'
@@ -24,8 +24,8 @@ spec:
         path: helm
 
         valueFiles:
-          - values.yaml
-          - values-{{ .values.environment }}.yaml
+          - ./values.yaml
+          - ./env/values-{{ .values.environment }}.yaml
 
       destination:
         server: https://kubernetes.default.svc
