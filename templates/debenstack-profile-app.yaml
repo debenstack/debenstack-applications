@@ -24,7 +24,7 @@ spec:
       - values.yaml
 
       # Ignore locally missing valueFiles when installing Helm chart. Defaults to false
-      ignoreMissingValueFiles: false
+      #ignoreMissingValueFiles: false
 
 
   # Destination cluster and namespace to deploy the application
