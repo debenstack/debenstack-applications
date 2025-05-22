@@ -13,10 +13,10 @@ spec:
         files:
           - path: helm/values-*.yaml
         values:
-          env: '{{ .path.filename | replace "values-" "" | replace ".yaml" "" }}'
+          env: '{{`{{ .path.filename | replace "values-" "" | replace ".yaml" "" }}`}}'
   template:
     metadata:
-        name: 'debenstack-profile-{{ .values.env }}'
+        name: 'debenstack-profile-{{`{{ .values.env }}`}}'
     spec:
       project: default
       source:
@@ -26,11 +26,11 @@ spec:
 
         valueFiles:
           - 'values.yaml'
-          - 'values-{{ .values.env }}.yaml'
+          - 'values-{{`{{ .values.env }}`}}.yaml'
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: 'debenstack-profile-{{ .values.env }}'
+        namespace: 'debenstack-profile-{{`{{ .values.env }}`}}'
 
     # Sync policy
       syncPolicy:
