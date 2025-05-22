@@ -15,7 +15,7 @@ spec:
         environment: '{{ .path.filename | trimPrefix "values-" | trimSuffix ".yaml" }}'
   template:
     metadata:
-        name: 'debenstack-profile-{{environment}}'
+        name: 'debenstack-profile-{{ .values.environment }}'
     spec:
       project: default
       source:
@@ -25,11 +25,11 @@ spec:
 
         valueFiles:
           - values.yaml
-          - values-{{environment}}.yaml
+          - values-{{ .values.environment }}.yaml
 
       destination:
         server: https://kubernetes.default.svc
-        namespace: debenstack-profile-{{environment}}
+        namespace: debenstack-profile-{{ .values.environment }}
 
     # Sync policy
       syncPolicy:
